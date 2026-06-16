@@ -5,16 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="theme-color" content="#0f0f1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>FAB Missing Cards</title>
+<title>FAB Tracker</title>
 <style>
-  :root {
-    --bg:#0f0f1a; --bg2:#1a1a2e; --bg3:#16213e; --accent:#e94560; --accent2:#f5a623;
-    --text:#e0e0e0; --text2:#9090a0; --card-bg:#1e1e32; --border:#2a2a45;
-    --green:#4caf50; --radius:12px;
-  }
+  :root{--bg:#0f0f1a;--bg2:#1a1a2e;--bg3:#16213e;--accent:#e94560;--accent2:#f5a623;--text:#e0e0e0;--text2:#9090a0;--card-bg:#1e1e32;--border:#2a2a45;--green:#4caf50;--radius:12px;}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;}
-
   .header{background:linear-gradient(135deg,#0f0f1a,#1a1a2e);border-bottom:1px solid var(--border);padding:14px 16px;position:sticky;top:0;z-index:100;}
   .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
   .logo{display:flex;align-items:center;gap:10px;}
@@ -26,15 +21,11 @@
   .search-bar input{width:100%;padding:9px 14px 9px 38px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:14px;outline:none;transition:border-color .2s;}
   .search-bar input:focus{border-color:var(--accent);}
   .search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text2);}
-
   .nav-tabs{display:flex;gap:8px;padding:10px 16px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border);}
   .nav-tabs::-webkit-scrollbar{display:none;}
   .tab-btn{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:12px;cursor:pointer;transition:all .2s;white-space:nowrap;}
   .tab-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;}
-
   .main{padding:14px;}
-
-  /* SETS GRID */
   .sets-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
   .set-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:13px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
   .set-card:hover{border-color:var(--accent);transform:translateY(-2px);}
@@ -43,59 +34,49 @@
   .set-name{font-size:13px;font-weight:600;margin:4px 0;line-height:1.3;}
   .set-count{font-size:11px;color:var(--text2);}
   .set-missing{position:absolute;top:8px;right:8px;background:var(--accent);color:#fff;border-radius:10px;padding:2px 7px;font-size:10px;font-weight:700;}
-
-  /* CARD GRID (image mode) */
   .cards-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
   .back-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:7px 13px;border-radius:var(--radius);cursor:pointer;font-size:13px;white-space:nowrap;}
   .cards-header h2{font-size:15px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .view-toggle{display:flex;gap:4px;flex-shrink:0;}
-  .vt-btn{padding:5px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:12px;cursor:pointer;}
+  .vt-btn{padding:5px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:13px;cursor:pointer;}
   .vt-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
-
-  /* IMAGE GRID */
   .img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-  .img-card{position:relative;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .15s,transform .15s;}
+  .img-card{position:relative;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .15s,transform .15s;background:var(--card-bg);}
   .img-card:hover{transform:scale(1.03);}
   .img-card.selected{border-color:var(--accent);}
-  .img-card img{width:100%;aspect-ratio:5/7;object-fit:cover;display:block;background:var(--bg2);}
-  .img-placeholder{width:100%;aspect-ratio:5/7;background:var(--card-bg);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text2);font-size:10px;text-align:center;padding:4px;}
-  .img-placeholder span{font-size:20px;margin-bottom:4px;}
-  .img-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.85));padding:6px 6px 5px;pointer-events:none;}
+  .img-card img{width:100%;aspect-ratio:5/7;object-fit:cover;display:block;}
+  .img-placeholder{width:100%;aspect-ratio:5/7;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text2);font-size:10px;text-align:center;padding:6px;gap:4px;}
+  .img-placeholder .pi{font-size:22px;}
+  .img-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.88));padding:6px 5px 5px;pointer-events:none;}
   .img-name{font-size:9px;font-weight:700;color:#fff;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .img-pitch-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:3px;vertical-align:middle;}
-  .p1{background:#e53935;} .p2{background:#ffd600;} .p3{background:#43a047;}
-  .qty-badge{position:absolute;top:5px;right:5px;background:var(--accent);color:#fff;border-radius:10px;padding:2px 7px;font-size:11px;font-weight:700;line-height:1;}
+  .p1c{background:#e53935;} .p2c{background:#ffd600;} .p3c{background:#43a047;}
+  .pdot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:3px;vertical-align:middle;}
+  .qty-badge{position:absolute;top:5px;right:5px;background:var(--accent);color:#fff;border-radius:10px;padding:2px 7px;font-size:11px;font-weight:700;}
   .img-controls{position:absolute;top:5px;left:5px;display:flex;gap:3px;}
-  .ic-btn{width:22px;height:22px;border-radius:50%;border:none;background:rgba(0,0,0,.7);color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;}
+  .ic-btn{width:22px;height:22px;border-radius:50%;border:none;background:rgba(0,0,0,.7);color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
   .ic-btn:hover{background:var(--accent);}
-
-  /* LIST MODE */
-  .card-item{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px;margin-bottom:7px;display:flex;align-items:center;gap:11px;transition:border-color .2s;}
+  .card-item{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;margin-bottom:7px;display:flex;align-items:center;gap:10px;transition:border-color .2s;}
   .card-item.has-missing{border-color:var(--accent);}
-  .card-thumb{width:42px;height:58px;border-radius:6px;object-fit:cover;flex-shrink:0;background:var(--bg3);}
-  .card-info{flex:1;min-width:0;}
+  .card-thumb{width:40px;height:56px;border-radius:5px;object-fit:cover;flex-shrink:0;background:var(--bg3);}
+  .card-thumb-ph{width:40px;height:56px;border-radius:5px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+  .card-info{flex:1;min-width:0;cursor:pointer;}
   .card-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .card-meta{font-size:11px;color:var(--text2);margin-top:2px;}
-  .qty-control{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+  .qty-control{display:flex;align-items:center;gap:5px;flex-shrink:0;}
   .qty-btn{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
   .qty-btn:hover{background:var(--accent);border-color:var(--accent);}
-  .qty-num{width:22px;text-align:center;font-size:15px;font-weight:700;color:var(--accent2);}
-
-  /* MISSING LIST */
-  .missing-section{margin-bottom:22px;}
+  .qty-num{width:20px;text-align:center;font-size:15px;font-weight:700;color:var(--accent2);}
+  .missing-section{margin-bottom:20px;}
   .missing-section h3{font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
-  .missing-item{background:var(--card-bg);border:1px solid var(--accent);border-radius:var(--radius);padding:9px 13px;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
-  .missing-thumb{width:36px;height:50px;border-radius:5px;object-fit:cover;flex-shrink:0;background:var(--bg3);}
+  .missing-item{background:var(--card-bg);border:1px solid var(--accent);border-radius:var(--radius);padding:9px 12px;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+  .missing-thumb{width:34px;height:48px;border-radius:5px;object-fit:cover;flex-shrink:0;background:var(--bg3);}
   .missing-info{flex:1;min-width:0;}
   .missing-name{font-size:13px;font-weight:600;}
   .missing-set{font-size:11px;color:var(--text2);}
   .missing-qty{background:var(--accent);color:#fff;border-radius:8px;padding:3px 9px;font-size:13px;font-weight:700;flex-shrink:0;}
-
-  .export-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:var(--radius);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:14px;transition:opacity .2s;}
-  .export-btn:hover{opacity:.9;}
+  .export-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:var(--radius);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:14px;}
   .clear-btn{width:100%;padding:10px;background:transparent;border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-size:13px;cursor:pointer;margin-top:8px;}
   .clear-btn:hover{border-color:var(--accent);color:var(--accent);}
-
   .empty-state{text-align:center;padding:50px 20px;color:var(--text2);}
   .empty-state .icon{font-size:44px;margin-bottom:10px;}
   .loader{text-align:center;padding:40px;color:var(--text2);}
@@ -103,22 +84,20 @@
   @keyframes spin{to{transform:rotate(360deg);}}
   .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
   .toast.show{opacity:1;}
-
-  /* MODAL */
-  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center;}
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;align-items:center;justify-content:center;padding:16px;}
   .modal-bg.open{display:flex;}
-  .modal{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:20px;max-width:340px;width:90%;position:relative;}
+  .modal{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:18px;max-width:320px;width:100%;position:relative;max-height:90vh;overflow-y:auto;}
   .modal img{width:100%;border-radius:10px;margin-bottom:12px;}
-  .modal-name{font-size:17px;font-weight:700;margin-bottom:4px;}
+  .modal-name{font-size:17px;font-weight:700;margin-bottom:3px;}
   .modal-meta{font-size:12px;color:var(--text2);margin-bottom:14px;}
+  .modal-label{font-size:12px;color:var(--text2);text-align:center;margin-bottom:10px;}
   .modal-qty-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px;}
   .modal-qty-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
   .modal-qty-btn:hover{background:var(--accent);border-color:var(--accent);}
   .modal-qty-num{font-size:26px;font-weight:700;color:var(--accent2);min-width:40px;text-align:center;}
-  .modal-label{font-size:12px;color:var(--text2);text-align:center;margin-bottom:14px;}
   .modal-close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;}
-  .modal-close:hover{color:var(--text);}
   .modal-add-btn{width:100%;padding:11px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:var(--radius);color:#fff;font-size:14px;font-weight:700;cursor:pointer;}
+  .search-info{font-size:12px;color:var(--text2);margin-bottom:12px;padding:8px 12px;background:var(--bg2);border-radius:8px;}
 </style>
 </head>
 <body>
@@ -132,310 +111,333 @@
   </div>
   <div class="search-bar">
     <span class="search-icon">🔍</span>
-    <input type="text" id="searchInput" placeholder="Search cards..." oninput="onSearch(this.value)">
+    <input type="text" id="searchInput" placeholder="Search all cards..." oninput="onSearch(this.value)">
   </div>
 </div>
 <div class="nav-tabs" id="navTabs"></div>
-<div class="main" id="mainContent"><div class="loader"><div class="spinner"></div>Loading sets...</div></div>
+<div class="main" id="mainContent"><div class="loader"><div class="spinner"></div><p>Loading card data...</p></div></div>
 <div class="toast" id="toast"></div>
-
-<!-- MODAL -->
-<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
+<div class="modal-bg" id="modalBg" onclick="closeModalOutside(event)">
   <div class="modal" id="modalBox">
-    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <button class="modal-close" onclick="closeModal()">✕</button>
     <img id="modalImg" src="" alt="" onerror="this.style.display='none'">
     <div class="modal-name" id="modalName"></div>
     <div class="modal-meta" id="modalMeta"></div>
     <div class="modal-label">How many do you need?</div>
     <div class="modal-qty-row">
       <button class="modal-qty-btn" onclick="modalDelta(-1)">−</button>
-      <div class="modal-qty-num" id="modalQty">0</div>
+      <div class="modal-qty-num" id="modalQtyNum">0</div>
       <button class="modal-qty-btn" onclick="modalDelta(1)">+</button>
     </div>
     <button class="modal-add-btn" onclick="modalSave()">✓ Save to missing list</button>
   </div>
 </div>
-
 <script>
-const API='https://api.goagain.dev/v1';
-const IMG_BASE='https://storage.googleapis.com/fabmaster/media/images/';
-let allSets=[], cardsBySet={}, missing=JSON.parse(localStorage.getItem('fab_missing')||'{}');
-let currentView='sets', currentSet=null, currentCards=[], viewMode='image';
-let modalCard=null, modalTmpQty=0, searchTimeout=null;
+// ─── DATA SOURCES ───────────────────────────────────────────────
+// All card data from the-fab-cube open source repo (community maintained)
+// Images from FABtcg official CDN
+const RAW = 'https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/develop/json/english/';
+const IMG  = 'https://storage.googleapis.com/fabmaster/media/images/';
 
-function imgUrl(c){
-  // Try printings array first, then fall back to id-based guess
-  if(c.printings&&c.printings.length){
-    const p=c.printings[0];
-    if(p.id) return IMG_BASE+p.id+'.width-450.png';
+let allCards = [];   // full flat card list
+let allSets  = [];   // [{id, name, cards:[]}]
+let setMap   = {};   // id -> set
+let cardMap  = {};   // unique_id -> card
+let missing  = JSON.parse(localStorage.getItem('fab_missing') || '{}');
+let viewMode = 'image';
+let currentSet  = null;
+let currentCards = [];
+let modalCard = null, modalTmpQty = 0;
+
+// ─── INIT ────────────────────────────────────────────────────────
+async function init() {
+  try {
+    const [cardRes, setRes] = await Promise.all([
+      fetch(RAW + 'card.json'),
+      fetch(RAW + 'set.json')
+    ]);
+    allCards = await cardRes.json();
+    const rawSets = await setRes.json();
+
+    // Build set lookup
+    rawSets.forEach(s => {
+      setMap[s.id] = { id: s.id, name: s.name, cards: [] };
+    });
+
+    // Index cards
+    allCards.forEach(c => {
+      cardMap[c.unique_id] = c;
+      // attach card to its set(s) via printings
+      const setIds = new Set();
+      if (c.printings) c.printings.forEach(p => { if (p.set_id) setIds.add(p.set_id); });
+      if (c.set_id) setIds.add(c.set_id);
+      setIds.forEach(sid => { if (setMap[sid]) setMap[sid].cards.push(c); });
+    });
+
+    allSets = Object.values(setMap).filter(s => s.cards.length > 0)
+                    .sort((a, b) => a.name.localeCompare(b.name));
+
+    buildTabs();
+    renderSetsView();
+    updateBadge();
+  } catch(e) {
+    document.getElementById('mainContent').innerHTML =
+      `<div class="empty-state"><div class="icon">⚠️</div><p>Could not load card data.<br><small>${e.message}</small></p></div>`;
   }
-  // fallback: use card id uppercased
-  if(c.id) return IMG_BASE+c.id.toUpperCase()+'.width-450.png';
+}
+
+// ─── HELPERS ─────────────────────────────────────────────────────
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function saveMissing() { localStorage.setItem('fab_missing', JSON.stringify(missing)); updateBadge(); }
+function updateBadge() { document.getElementById('totalMissing').textContent = Object.values(missing).reduce((s,v)=>s+v,0); }
+function showToast(m) { const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000); }
+
+function imgUrl(c) {
+  if (c.printings && c.printings.length) {
+    for (const p of c.printings) {
+      if (p.image_url) return p.image_url;
+      if (p.id) return IMG + p.id + '.width-450.png';
+    }
+  }
+  if (c.image_url) return c.image_url;
   return '';
 }
 
-function saveMissing(){localStorage.setItem('fab_missing',JSON.stringify(missing));updateBadge();}
-function updateBadge(){document.getElementById('totalMissing').textContent=Object.values(missing).reduce((s,v)=>s+v,0);}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function pitchLabel(p){return p==1?'Red':p==2?'Yellow':p==3?'Blue':'';}
+function pitchLabel(p) { return p==1?'Red':p==2?'Yellow':p==3?'Blue':''; }
+function pitchClass(p) { return p==1?'p1c':p==2?'p2c':p==3?'p3c':''; }
 
-async function fetchSets(){
-  try{
-    const r=await fetch(`${API}/sets`);const d=await r.json();
-    allSets=(d.sets||d).filter(s=>s.id&&s.name);
-    renderSetsView();buildTabs();
-  }catch(e){
-    document.getElementById('mainContent').innerHTML=`<div class="empty-state"><div class="icon">⚠️</div><p>Could not load sets.</p></div>`;
-  }
+// ─── TABS ────────────────────────────────────────────────────────
+function buildTabs() {
+  document.getElementById('navTabs').innerHTML =
+    `<button class="tab-btn active" onclick="tabClick('sets',this)">All Sets</button>
+     <button class="tab-btn" onclick="tabClick('missing',this)">🗒️ My List</button>`;
 }
-
-function buildTabs(){
-  document.getElementById('navTabs').innerHTML=`
-    <button class="tab-btn active" onclick="tabClick('sets',this)">All Sets</button>
-    <button class="tab-btn" onclick="tabClick('missing',this)">🗒️ My List</button>`;
-}
-function tabClick(view,btn){
+function tabClick(view, btn) {
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('searchInput').value='';
-  if(view==='sets') renderSetsView();
+  document.getElementById('searchInput').value = '';
+  if (view==='sets') renderSetsView();
   else showMissingView();
 }
 
-function getMissingCount(setId){
-  if(!cardsBySet[setId]) return 0;
-  return cardsBySet[setId].filter(c=>missing[c.id]>0).reduce((s,c)=>s+(missing[c.id]||0),0);
+// ─── SETS VIEW ───────────────────────────────────────────────────
+function getMissingForSet(setId) {
+  if (!setMap[setId]) return 0;
+  return setMap[setId].cards.reduce((s,c) => s + (missing[c.unique_id]||0), 0);
 }
 
-function renderSetsView(){
-  currentSet=null; currentView='sets';
-  const el=document.getElementById('mainContent');
-  if(!allSets.length){el.innerHTML='<div class="loader"><div class="spinner"></div>Loading...</div>';return;}
-  let h='<div class="sets-grid">';
-  allSets.forEach(s=>{
-    const mis=getMissingCount(s.id);
-    h+=`<div class="set-card" onclick="openSet('${esc(s.id)}','${esc(s.name)}')">
+function renderSetsView() {
+  currentSet = null;
+  const el = document.getElementById('mainContent');
+  let h = '<div class="sets-grid">';
+  allSets.forEach(s => {
+    const mis = getMissingForSet(s.id);
+    h += `<div class="set-card" onclick="openSet('${esc(s.id)}')">
       ${mis>0?`<div class="set-missing">${mis}</div>`:''}
-      <div class="set-code">${esc(s.id.toUpperCase())}</div>
+      <div class="set-code">${esc(s.id)}</div>
       <div class="set-name">${esc(s.name)}</div>
-      <div class="set-count">${s.card_count?s.card_count+' cards':'Tap to browse'}</div>
+      <div class="set-count">${s.cards.length} cards</div>
     </div>`;
   });
-  h+='</div>';
-  el.innerHTML=h;
+  el.innerHTML = h + '</div>';
 }
 
-async function openSet(setId,setName){
-  currentSet={id:setId,name:setName}; currentView='cards';
-  const el=document.getElementById('mainContent');
-  el.innerHTML='<div class="loader"><div class="spinner"></div>Loading cards...</div>';
-  if(!cardsBySet[setId]){
-    try{
-      const r=await fetch(`${API}/sets/${setId}`);
-      const d=await r.json();
-      cardsBySet[setId]=d.cards||[];
-    }catch(e){el.innerHTML=`<div class="empty-state"><div class="icon">⚠️</div><p>Could not load cards.</p></div>`;return;}
-  }
-  currentCards=cardsBySet[setId];
-  renderCards(currentCards,setName);
+// ─── CARDS VIEW ──────────────────────────────────────────────────
+function openSet(setId) {
+  currentSet = setMap[setId];
+  currentCards = currentSet.cards;
+  renderCards(currentCards, currentSet.name);
 }
 
-function renderCards(cards,title){
-  const el=document.getElementById('mainContent');
-  const hdr=`<div class="cards-header">
-    <button class="back-btn" onclick="renderSetsView()">← Back</button>
+function renderCards(cards, title, isSearch=false) {
+  const el = document.getElementById('mainContent');
+  const backBtn = isSearch
+    ? `<button class="back-btn" onclick="clearSearch()">✕ Clear</button>`
+    : `<button class="back-btn" onclick="renderSetsView()">← Back</button>`;
+  let h = `<div class="cards-header">
+    ${backBtn}
     <h2>${esc(title)}</h2>
     <div class="view-toggle">
       <button class="vt-btn ${viewMode==='image'?'active':''}" onclick="setView('image',this)">▦</button>
       <button class="vt-btn ${viewMode==='list'?'active':''}" onclick="setView('list',this)">☰</button>
     </div>
   </div>`;
-  if(!cards.length){el.innerHTML=hdr+`<div class="empty-state"><div class="icon">📦</div><p>No cards.</p></div>`;return;}
-  el.innerHTML=hdr+(viewMode==='image'?renderImageGrid(cards):renderListView(cards));
+  if (isSearch) h += `<div class="search-info">Found ${cards.length} card${cards.length!==1?'s':''}</div>`;
+  if (!cards.length) { el.innerHTML = h + `<div class="empty-state"><div class="icon">🔍</div><p>No cards found.</p></div>`; return; }
+  el.innerHTML = h + (viewMode==='image' ? renderImageGrid(cards) : renderListView(cards));
 }
 
-function renderImageGrid(cards){
-  let h='<div class="img-grid">';
-  cards.forEach(c=>{
-    const qty=missing[c.id]||0;
-    const url=imgUrl(c);
-    h+=`<div class="img-card ${qty>0?'selected':''}" id="ic_${c.id}" onclick="openModal('${esc(c.id)}')">
-      ${url?`<img src="${esc(url)}" alt="${esc(c.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="img-placeholder" style="display:none"><span>🃏</span>${esc(c.name)}</div>`
-      :`<div class="img-placeholder"><span>🃏</span>${esc(c.name)}</div>`}
+function renderImageGrid(cards) {
+  let h = '<div class="img-grid">';
+  cards.forEach(c => {
+    const id = c.unique_id, qty = missing[id]||0, url = imgUrl(c);
+    h += `<div class="img-card ${qty>0?'selected':''}" id="ic_${id}" onclick="openModal('${esc(id)}')">
+      ${url
+        ? `<img src="${esc(url)}" alt="${esc(c.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+           <div class="img-placeholder" style="display:none"><div class="pi">🃏</div><div>${esc(c.name)}</div></div>`
+        : `<div class="img-placeholder"><div class="pi">🃏</div><div>${esc(c.name)}</div></div>`}
       <div class="img-overlay">
-        ${c.pitch?`<span class="img-pitch-dot p${c.pitch}"></span>`:''}
+        ${c.pitch?`<span class="pdot ${pitchClass(c.pitch)}"></span>`:''}
         <span class="img-name">${esc(c.name)}</span>
       </div>
       ${qty>0?`<div class="qty-badge">${qty}x</div>`:''}
       <div class="img-controls">
-        <button class="ic-btn" onclick="quickDelta(event,'${esc(c.id)}',-1)">−</button>
-        <button class="ic-btn" onclick="quickDelta(event,'${esc(c.id)}',1)">+</button>
+        <button class="ic-btn" onclick="quickDelta(event,'${esc(id)}',-1)">−</button>
+        <button class="ic-btn" onclick="quickDelta(event,'${esc(id)}',1)">+</button>
       </div>
     </div>`;
   });
-  return h+'</div>';
+  return h + '</div>';
 }
 
-function renderListView(cards){
-  let h='';
-  cards.forEach(c=>{
-    const qty=missing[c.id]||0;
-    const url=imgUrl(c);
-    h+=`<div class="card-item ${qty>0?'has-missing':''}" id="li_${c.id}">
-      ${url?`<img class="card-thumb" src="${esc(url)}" alt="" loading="lazy" onerror="this.src=''">`:
-      `<div class="card-thumb" style="border-radius:6px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:18px;">🃏</div>`}
-      <div class="card-info" onclick="openModal('${esc(c.id)}')">
+function renderListView(cards) {
+  let h = '';
+  cards.forEach(c => {
+    const id = c.unique_id, qty = missing[id]||0, url = imgUrl(c);
+    h += `<div class="card-item ${qty>0?'has-missing':''}" id="li_${id}">
+      ${url
+        ? `<img class="card-thumb" src="${esc(url)}" alt="" loading="lazy" onerror="this.outerHTML='<div class=card-thumb-ph>🃏</div>'">`
+        : `<div class="card-thumb-ph">🃏</div>`}
+      <div class="card-info" onclick="openModal('${esc(id)}')">
         <div class="card-name">${esc(c.name)}</div>
-        <div class="card-meta">${c.pitch?`<span class="img-pitch-dot p${c.pitch}" style="display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:3px;"></span>${pitchLabel(c.pitch)}`:''}${c.type_text?(c.pitch?' · ':'')+esc(c.type_text):''}</div>
+        <div class="card-meta">${c.pitch?`<span class="pdot ${pitchClass(c.pitch)}" style="display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:3px;vertical-align:middle;"></span>${pitchLabel(c.pitch)} · `:''} ${esc(c.type_text||'')}</div>
       </div>
       <div class="qty-control">
-        <button class="qty-btn" onclick="quickDelta(event,'${esc(c.id)}',-1)">−</button>
-        <div class="qty-num" id="qn_${c.id}">${qty}</div>
-        <button class="qty-btn" onclick="quickDelta(event,'${esc(c.id)}',1)">+</button>
+        <button class="qty-btn" onclick="quickDelta(event,'${esc(id)}',-1)">−</button>
+        <div class="qty-num" id="qn_${id}">${qty}</div>
+        <button class="qty-btn" onclick="quickDelta(event,'${esc(id)}',1)">+</button>
       </div>
     </div>`;
   });
   return h;
 }
 
-function setView(mode, btn){
-  viewMode=mode;
+function setView(mode, btn) {
+  viewMode = mode;
   document.querySelectorAll('.vt-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  renderCards(currentCards, currentSet?currentSet.name:'Results');
+  const title = currentSet ? currentSet.name : 'Search results';
+  const isSearch = !currentSet;
+  renderCards(currentCards, title, isSearch);
 }
 
-function quickDelta(e, cardId, delta){
+// ─── QUANTITY ────────────────────────────────────────────────────
+function quickDelta(e, id, delta) {
   e.stopPropagation();
-  const cur=missing[cardId]||0, nxt=Math.max(0,cur+delta);
-  if(nxt===0) delete missing[cardId]; else missing[cardId]=nxt;
+  const nxt = Math.max(0, (missing[id]||0) + delta);
+  if (nxt===0) delete missing[id]; else missing[id]=nxt;
   saveMissing();
-  // update image grid
-  const ic=document.getElementById('ic_'+cardId);
-  if(ic){
-    ic.classList.toggle('selected',nxt>0);
-    let badge=ic.querySelector('.qty-badge');
-    if(nxt>0){if(!badge){badge=document.createElement('div');badge.className='qty-badge';ic.appendChild(badge);}badge.textContent=nxt+'x';}
-    else if(badge) badge.remove();
+  const ic = document.getElementById('ic_'+id);
+  if (ic) {
+    ic.classList.toggle('selected', nxt>0);
+    let b = ic.querySelector('.qty-badge');
+    if (nxt>0) { if(!b){b=document.createElement('div');b.className='qty-badge';ic.appendChild(b);} b.textContent=nxt+'x'; }
+    else if (b) b.remove();
   }
-  // update list
-  const li=document.getElementById('li_'+cardId);
-  if(li){li.classList.toggle('has-missing',nxt>0);const qn=document.getElementById('qn_'+cardId);if(qn)qn.textContent=nxt;}
+  const li = document.getElementById('li_'+id);
+  if (li) { li.classList.toggle('has-missing',nxt>0); const q=document.getElementById('qn_'+id); if(q) q.textContent=nxt; }
 }
 
-// MODAL
-function findCard(id){
-  for(const s in cardsBySet){const f=cardsBySet[s].find(c=>c.id===id);if(f)return f;}
-  return null;
-}
-function openModal(cardId){
-  modalCard=findCard(cardId)||{id:cardId,name:cardId};
-  modalTmpQty=missing[cardId]||0;
-  document.getElementById('modalName').textContent=modalCard.name||cardId;
-  const meta=[pitchLabel(modalCard.pitch),modalCard.type_text].filter(Boolean).join(' · ');
-  document.getElementById('modalMeta').textContent=meta;
-  const url=imgUrl(modalCard);
-  const img=document.getElementById('modalImg');
-  img.src=url; img.style.display=url?'block':'none';
-  document.getElementById('modalQty').textContent=modalTmpQty;
+// ─── MODAL ───────────────────────────────────────────────────────
+function openModal(id) {
+  modalCard = cardMap[id] || { unique_id: id, name: id };
+  modalTmpQty = missing[id] || 0;
+  document.getElementById('modalName').textContent = modalCard.name || id;
+  const meta = [pitchLabel(modalCard.pitch), modalCard.type_text].filter(Boolean).join(' · ');
+  document.getElementById('modalMeta').textContent = meta;
+  const url = imgUrl(modalCard);
+  const img = document.getElementById('modalImg');
+  img.src = url; img.style.display = url ? 'block' : 'none';
+  document.getElementById('modalQtyNum').textContent = modalTmpQty;
   document.getElementById('modalBg').classList.add('open');
 }
-function closeModal(e){if(e.target===document.getElementById('modalBg'))closeModalDirect();}
-function closeModalDirect(){document.getElementById('modalBg').classList.remove('open');modalCard=null;}
-function modalDelta(d){modalTmpQty=Math.max(0,modalTmpQty+d);document.getElementById('modalQty').textContent=modalTmpQty;}
-function modalSave(){
-  if(!modalCard) return;
-  if(modalTmpQty===0) delete missing[modalCard.id]; else missing[modalCard.id]=modalTmpQty;
+function closeModal() { document.getElementById('modalBg').classList.remove('open'); modalCard=null; }
+function closeModalOutside(e) { if(e.target===document.getElementById('modalBg')) closeModal(); }
+function modalDelta(d) { modalTmpQty=Math.max(0,modalTmpQty+d); document.getElementById('modalQtyNum').textContent=modalTmpQty; }
+function modalSave() {
+  if (!modalCard) return;
+  const id = modalCard.unique_id;
+  if (modalTmpQty===0) delete missing[id]; else missing[id]=modalTmpQty;
   saveMissing();
-  // refresh display
-  const ic=document.getElementById('ic_'+modalCard.id);
+  quickDelta({stopPropagation:()=>{}}, id, 0); // just refresh display
+  // force refresh display
+  const ic=document.getElementById('ic_'+id);
   if(ic){
     ic.classList.toggle('selected',modalTmpQty>0);
-    let badge=ic.querySelector('.qty-badge');
-    if(modalTmpQty>0){if(!badge){badge=document.createElement('div');badge.className='qty-badge';ic.appendChild(badge);}badge.textContent=modalTmpQty+'x';}
-    else if(badge) badge.remove();
+    let b=ic.querySelector('.qty-badge');
+    if(modalTmpQty>0){if(!b){b=document.createElement('div');b.className='qty-badge';ic.appendChild(b);}b.textContent=modalTmpQty+'x';}
+    else if(b) b.remove();
   }
-  const li=document.getElementById('li_'+modalCard.id);
-  if(li){li.classList.toggle('has-missing',modalTmpQty>0);const qn=document.getElementById('qn_'+modalCard.id);if(qn)qn.textContent=modalTmpQty;}
+  const li=document.getElementById('li_'+id);
+  if(li){li.classList.toggle('has-missing',modalTmpQty>0);const q=document.getElementById('qn_'+id);if(q)q.textContent=modalTmpQty;}
   showToast(modalTmpQty>0?`${modalTmpQty}x ${modalCard.name} saved!`:'Removed from list');
-  closeModalDirect();
+  closeModal();
 }
 
-function showMissingView(){
-  currentView='missing';
-  const el=document.getElementById('mainContent');
-  const entries=Object.entries(missing).filter(([,v])=>v>0);
-  if(!entries.length){el.innerHTML=`<div class="empty-state"><div class="icon">✅</div><p>No missing cards!<br>Browse sets and add cards.</p></div>`;return;}
-  const bySet={};
-  entries.forEach(([id,qty])=>{
-    const card=findCard(id)||{id,name:id};
-    let setKey='Unknown';
-    for(const s in cardsBySet){if(cardsBySet[s].find(c=>c.id===id)){setKey=s.toUpperCase();break;}}
-    if(!bySet[setKey]) bySet[setKey]=[];
-    bySet[setKey].push({...card,qty});
+// ─── SEARCH (local, instant) ─────────────────────────────────────
+function onSearch(q) {
+  q = q.trim().toLowerCase();
+  if (!q) { clearSearch(); return; }
+  const results = allCards.filter(c => c.name && c.name.toLowerCase().includes(q)).slice(0, 80);
+  currentCards = results;
+  currentSet = null;
+  renderCards(results, `"${q}"`, true);
+}
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  if (currentSet) renderCards(currentSet.cards, currentSet.name);
+  else renderSetsView();
+}
+
+// ─── MISSING VIEW ────────────────────────────────────────────────
+function showMissingView() {
+  const el = document.getElementById('mainContent');
+  const entries = Object.entries(missing).filter(([,v])=>v>0);
+  if (!entries.length) {
+    el.innerHTML=`<div class="empty-state"><div class="icon">✅</div><p>No missing cards yet!<br>Browse sets and add cards.</p></div>`;
+    return;
+  }
+  const bySet = {};
+  entries.forEach(([id,qty]) => {
+    const c = cardMap[id] || { unique_id: id, name: id };
+    let setKey = '?';
+    if (c.printings && c.printings[0] && c.printings[0].set_id) setKey = c.printings[0].set_id;
+    else if (c.set_id) setKey = c.set_id;
+    if (!bySet[setKey]) bySet[setKey]=[];
+    bySet[setKey].push({...c, qty});
   });
-  let h='';
-  for(const [setKey,cards] of Object.entries(bySet)){
-    h+=`<div class="missing-section"><h3>${esc(setKey)}</h3>`;
-    cards.forEach(c=>{
-      const url=imgUrl(c);
-      h+=`<div class="missing-item">
-        ${url?`<img class="missing-thumb" src="${esc(url)}" alt="" onerror="this.style.display='none'">`:''}
-        <div class="missing-info"><div class="missing-name">${esc(c.name||c.id)}</div><div class="missing-set">${esc(setKey)}</div></div>
+  let h = '';
+  for (const [sk, cards] of Object.entries(bySet).sort()) {
+    const setName = setMap[sk]?.name || sk;
+    h += `<div class="missing-section"><h3>${esc(setName)}</h3>`;
+    cards.forEach(c => {
+      const url = imgUrl(c);
+      h += `<div class="missing-item">
+        ${url?`<img class="missing-thumb" src="${esc(url)}" alt="" onerror="this.style.display='none'">` :''}
+        <div class="missing-info"><div class="missing-name">${esc(c.name)}</div><div class="missing-set">${esc(sk)}</div></div>
         <div class="missing-qty">${c.qty}x</div>
       </div>`;
     });
-    h+='</div>';
+    h += '</div>';
   }
-  h+=`<button class="export-btn" onclick="exportList()">📋 Copy as text list</button>
-      <button class="clear-btn" onclick="clearAll()">🗑️ Clear all</button>`;
-  el.innerHTML=h;
+  h += `<button class="export-btn" onclick="exportList()">📋 Copy as text list</button>
+        <button class="clear-btn" onclick="clearAll()">🗑️ Clear all</button>`;
+  el.innerHTML = h;
 }
 
-function exportList(){
-  const lines=Object.entries(missing).filter(([,v])=>v>0).map(([id,qty])=>{
-    const c=findCard(id);return `${qty}x ${c?c.name:id}`;
-  });
-  const txt=lines.join('\n');
-  if(navigator.clipboard){navigator.clipboard.writeText(txt).then(()=>showToast('Copied!'));}
-  else{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('Copied!');}
+function exportList() {
+  const lines = Object.entries(missing).filter(([,v])=>v>0)
+    .map(([id,qty]) => `${qty}x ${(cardMap[id]||{name:id}).name}`);
+  const txt = lines.join('\n');
+  if (navigator.clipboard) navigator.clipboard.writeText(txt).then(()=>showToast('Copied!'));
+  else { const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('Copied!'); }
 }
 
-function clearAll(){
-  if(confirm('Clear the entire missing list?')){
-    missing={};saveMissing();showMissingView();showToast('List cleared');
-  }
+function clearAll() {
+  if (confirm('Clear the entire missing list?')) { missing={}; saveMissing(); showMissingView(); }
 }
 
-async function onSearch(q){
-  clearTimeout(searchTimeout);
-  if(!q.trim()){
-    if(currentSet) renderCards(currentCards,currentSet.name);
-    else renderSetsView();
-    return;
-  }
-  searchTimeout=setTimeout(async()=>{
-    const el=document.getElementById('mainContent');
-    el.innerHTML='<div class="loader"><div class="spinner"></div>Searching...</div>';
-    try{
-      const r=await fetch(`${API}/cards?q=${encodeURIComponent(q)}&limit=60`);
-      const d=await r.json();
-      const cards=d.cards||d;
-      // cache them
-      cards.forEach(c=>{
-        // add to a virtual search cache
-        if(!cardsBySet['_search']) cardsBySet['_search']=[];
-        if(!cardsBySet['_search'].find(x=>x.id===c.id)) cardsBySet['_search'].push(c);
-      });
-      currentCards=cards; currentSet=null;
-      renderCards(cards,`"${q}"`);
-    }catch(e){el.innerHTML=`<div class="empty-state"><div class="icon">⚠️</div><p>Search failed.</p></div>`;}
-  },400);
-}
-
-updateBadge();fetchSets();
+init();
 </script>
 </body>
 </html>
