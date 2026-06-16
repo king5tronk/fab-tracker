@@ -214,7 +214,12 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
     </div>
     <div class="field">
       <label>Set</label>
-      <select id="cb-set"><option value="">— Loading sets… —</option></select>
+      <div class="search-bar" style="margin-bottom:6px;">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="cb-set-search" placeholder="Search sets…" oninput="filterSetList(this.value)" autocomplete="off">
+      </div>
+      <select id="cb-set" size="5" style="border-radius:var(--radius);height:auto;padding:4px 0;"><option value="">— Loading sets… —</option></select>
+      <div style="font-size:11px;color:var(--text2);margin-top:6px;">⚠️ Very new sets (e.g. Omens of the Third Age / OMN, released June 5 2026) may not yet appear — the community data source updates within days of release.</div>
     </div>
     <div class="field">
       <label>Cover color</label>
@@ -502,10 +507,17 @@ function exportBinder(){
 }
 
 // ── CREATE BINDER ───────────────────────────────────────────────
+function filterSetList(q){
+  const sel=document.getElementById('cb-set');
+  const opts=sel.querySelectorAll('option');
+  const lq=q.trim().toLowerCase();
+  opts.forEach(o=>{ o.style.display=(!lq||o.textContent.toLowerCase().includes(lq)||o.value.toLowerCase().includes(lq))?'':'none'; });
+}
+
 function buildCreateForm(){
   const sel=document.getElementById('cb-set');
   sel.innerHTML='<option value="">— Choose a set —</option>';
-  allSets.forEach(s=>{ const o=document.createElement('option');o.value=s.id;o.textContent=s.name;sel.appendChild(o); });
+  allSets.forEach(s=>{ const o=document.createElement('option');o.value=s.id;o.textContent=`${s.name} (${s.id})`;sel.appendChild(o); });
 
   const cr=document.getElementById('cb-colors');
   COLORS.forEach((c,i)=>{
