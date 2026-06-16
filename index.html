@@ -72,6 +72,9 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .img-card img{width:100%;aspect-ratio:5/7;object-fit:cover;display:block;transition:filter .3s;}
 .img-placeholder{width:100%;aspect-ratio:5/7;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;text-align:center;padding:4px;gap:3px;transition:filter .3s;}
 .ph-icon{font-size:20px;}
+.img-controls{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);display:flex;justify-content:space-between;padding:0 6px;pointer-events:none;}
+.ic-btn{pointer-events:all;width:34px;height:34px;border-radius:50%;border:none;background:rgba(0,0,0,.72);color:#fff;font-size:22px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;line-height:1;}
+.ic-btn:active,.ic-btn:hover{background:var(--accent);}
 
 /* Owned states */
 .img-card[data-owned="0"] img,
@@ -215,9 +218,9 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
     </div>
     <div class="field">
       <label>Set</label>
-      <div class="search-bar" style="margin-bottom:6px;">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="cb-set-search" placeholder="Search sets…" oninput="filterSetList(this.value)" autocomplete="off">
+      <div style="position:relative;margin-bottom:6px;">
+        <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text2);pointer-events:none;">🔍</span>
+        <input type="text" id="cb-set-search" placeholder="Search sets…" oninput="filterSetList(this.value)" autocomplete="off" style="width:100%;padding:9px 14px 9px 38px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:14px;outline:none;">
       </div>
       <select id="cb-set" size="5" style="border-radius:var(--radius);height:auto;padding:4px 0;"><option value="">— Loading sets… —</option></select>
       <div style="font-size:11px;color:var(--text2);margin-top:6px;">⚠️ Very new sets (e.g. Omens of the Third Age / OMN, released June 5 2026) may not yet appear — the community data source updates within days of release.</div>
